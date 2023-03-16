@@ -6,7 +6,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 function App() {
   const [period, setPeriod] = useState("current period");
   const [form, setForm] = useState(["64A", "64B", "64C"]);
-  const [waiverType, setWaiverType] = useState(["1115", "1915B", "1915C"]);
   const [demoYear, setDemoYear] = useState("");
 
   const handlePeriodChange = (e) => {
@@ -40,26 +39,52 @@ function App() {
   //   const inputValue = e.target.value;
   //   if(form === "64A" && inputValue === "NA") {
   //     setDemoYear("NA") 
-  //   } else if (form !== "64A" && inputValue >= 1 && inputValue <= 9) {
+  //     if(form === "64A" && Number(inputValue) >= 1 && Number(inputValue) <= 9)
+  //     setDemoYear(`0${inputValue}`);
+  //   } else if (form !== "64A" && Number(inputValue) >= 1 && Number(inputValue) <= 9) {
   //     setDemoYear(`0${inputValue}`);
   //   } else {
   //     setDemoYear(inputValue);
   //   }
   // };
 
-//пока самый рабочий вариант, но без NA
-  const handleChange = (e) => {
-    let value = e.target.value;
-    if (value !== "NA") {
-      value = parseInt(value, 10);
-      if (!isNaN(value) && value >= 1 && value <= 99) {
-        value = value.toString().padStart(2, "0");
+  const handleChange = (event) => {
+    const demoYear = event.target.value;
+    if (form === "64A") {
+      if (demoYear === "NA") {
+        setDemoYear(demoYear);
+      }else if(Number(demoYear) >= 1 && Number(demoYear) <= 9){
+        setDemoYear(`0${demoYear}`);
+      }
+      else {
+        setDemoYear("");
+      }
+    } else if (form === "64B" || form === "64C") {
+      if (Number(demoYear) >= 1 && Number(demoYear) <= 9) {
+        setDemoYear(`0${demoYear}`);
       } else {
-        value = "";
+        setDemoYear("");
       }
     }
-    setDemoYear(value);
   };
+
+
+  const handleInputChange = demoYear => {
+    setDemoYear({demoYear, wasAddFormPermormed: false})
+  }
+//пока самый рабочий вариант, но без NA
+  // const handleChange = (e) => {
+  //   let value = e.target.value;
+  //   if (value !== "NA") {
+  //     value = parseInt(value, 10);
+  //     if (!isNaN(value) && value >= 1 && value <= 99) {
+  //       value = value.toString().padStart(2, "0");
+  //     } else {
+  //       value = "";
+  //     }
+  //   }
+  //   setDemoYear(value);
+  // };
 
 
   return (
@@ -142,9 +167,24 @@ function App() {
           onChange={handleChange}
           value={demoYear}
         />
+      
+      </InputGroup>
+}
+       {/* {period === "current period" && <InputGroup className="mb-3">
+       <InputGroup.Text id="inputGroup-sizing-default">
+          Demo Year
+        </InputGroup.Text>
+        <Form.Control
+          type="text"
+          aria-label="Demo Year"
+          maxLength="2"
+          aria-describedby="inputGroup-sizing-default"
+          onChange={handleChange}
+          value={demoYear}
+        />
       </InputGroup>
 
-      }
+      } */}
       
     </div>
   );
