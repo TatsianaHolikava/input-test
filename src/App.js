@@ -14,6 +14,7 @@ function App() {
     setPeriod(value);
     setForm(value === "current period" ? form === "64A" : "");
   };
+
   // код выглядит правильно и должен работать, но инпуты вообще не печаются
   // const handleChange = (e) => {
   //   const inputValue = e.target.value;
@@ -35,19 +36,34 @@ function App() {
   // };
 
 //работает нормально, только NA вписывается не в зависимости от выбранного form
+  // const handleChange = (e) => {
+  //   const inputValue = e.target.value;
+  //   if(form === "64A" && inputValue === "NA") {
+  //     setDemoYear("NA") 
+  //   } else if (form !== "64A" && inputValue >= 1 && inputValue <= 9) {
+  //     setDemoYear(`0${inputValue}`);
+  //   } else {
+  //     setDemoYear(inputValue);
+  //   }
+  // };
+
+//пока самый рабочий вариант, но без NA
   const handleChange = (e) => {
-    const inputValue = e.target.value;
-    if(form === "64A" && inputValue === "NA") {
-      setDemoYear("NA") 
-    } else if ( inputValue >= 1 && inputValue <= 9) {
-      setDemoYear(`0${inputValue}`);
-    } else {
-      setDemoYear(inputValue);
+    let value = e.target.value;
+    if (value !== "NA") {
+      value = parseInt(value, 10);
+      if (!isNaN(value) && value >= 1 && value <= 99) {
+        value = value.toString().padStart(2, "0");
+      } else {
+        value = "";
+      }
     }
+    setDemoYear(value);
   };
 
+
   return (
-    <div className="App">
+    <div className="App">1
       <h1>Input Test</h1>
       <div
         style={{
