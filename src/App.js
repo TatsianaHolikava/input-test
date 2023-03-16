@@ -5,7 +5,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 function App() {
   const [period, setPeriod] = useState("current period");
-  const [form, setForm] = useState("64A", "64B", "64C");
+  const [form, setForm] = useState(["64A", "64B", "64C"]);
   const [waiverType, setWaiverType] = useState(["1115", "1915B", "1915C"]);
   const [demoYear, setDemoYear] = useState("");
 
