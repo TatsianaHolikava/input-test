@@ -10,8 +10,8 @@ function App() {
     const [period, setPeriod] = useState('');
     const [form, setForm] = useState('');
     const [demoYear, setDemoYear] = useState("");
-    
 
+    console.log(form)
 
     const handlePeriodChange = (e) => {
         const value = e.target.value;
@@ -19,49 +19,43 @@ function App() {
     };
 
 // const handleValidation = enteredValue => {
-//   const newRegExp = new RegExp('^([NA]|[0-9][1-9]?)$');
+//   const newRegExp = new RegExp('^([NA]|[0-9]|0[1-9]?)$');
 //   if (newRegExp.test(enteredValue)) {
 //     setDemoYear(enteredValue);
 // }
 // }
 
-// const handleInputDemoYear = demonstrationYear => {
-// setState({demonstrationYear, wasAddFormPermormed: false})
-// }
+//  const handleInputDemoYear = demonstrationYear => {
+//      if(form === "64A" && /[a-zA-Z]/.test(demonstrationYear) && demonstrationYear.length === 1){
+//     demoYear = "NA"
+//     }
+//  setState({demonstrationYear})
+//  }
 
-
-    const handleChange = (e) => {
-      let value = e.target.value;
-      if (form === "64A") {
-  
-          if (/^\d{1,2}$/.test(value) && value >= 1 && value <= 99) {
-              if (value.length === 1) {
-                  value = "0" + value;
-              }
-          }
-  
-          if (typeof value === "string" && value.length === 1) {
-              value = 'NA';
-          }
-  
-          if (demoYear === "NA") {
-              value = '';
-              setDemoYear('');
-          }
-      }
-      if (form === "64B" || form === "64C") {
-          if (typeof value === "string" && isNaN(value)) {
-              value = '';
-          }
-          if (/^\d{1,2}$/.test(value) && value >= 1 && value <= 99) {
-              if (value.length <= 1) {
-                  value = "0" + value;
-              }
-          }
-      }
-      setDemoYear(value);
-  };
-
+    // const handleChangeYear = (e) => {
+    //     let value = e.target.value;
+    //     if (form === "64A") {
+    //         if (typeof value === "string" && value.length >=2) {
+    //             value = 'NA';
+    //         }
+    //             if (/^\d{1,2}$/.test(value) && value >= 1 && value <= 99) {
+    //                 if (value.length <= 1) {
+    //                     value = "0" + value;
+    //                 }
+    //             }
+    //     }
+    //     if (form === "64B" || form === "64C") {
+    //         if (typeof value === "string" && isNaN(value)) {
+    //             value = '';
+    //         }
+    //         if (/^\d{1,2}$/.test(value) && value >= 1 && value <= 99) {
+    //             if (value.length <= 1) {
+    //                 value = "0" + value;
+    //             }
+    //         }
+    //     }
+    //     setDemoYear(value);
+    // };
 
     return (
         <div className="App">1
@@ -143,21 +137,18 @@ function App() {
                     aria-label="Demo Year"
                     maxLength="2"
                     aria-describedby="inputGroup-sizing-default"
-                    onChange={handleChange}
+                    onChange={handleChangeYear}
                     value={demoYear}
                 />
+
             </InputGroup>
             }
+
         </div>
     );
 }
 
-
 export default App;
-
-
-
-
 
 
 
